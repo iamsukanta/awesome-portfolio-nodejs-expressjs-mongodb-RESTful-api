@@ -35,9 +35,9 @@ mongoose.connect(db.url, { useNewUrlParser: true })
 const apiPrefix = process.env.API_PREFIX
 
 // ------------------ importing route files ------------------------
-const sampleapiRouter = require('./app/http/routes/sampleapi.route')
+const usersRouter = require('./app/http/routes/users.route')
 
 //---------------------- api routes -------------------------------
-app.use(apiPrefix + '/sampleapi', sampleapiRouter)
+app.use(apiPrefix + '/users', usersRouter)
 
 module.exports = app
