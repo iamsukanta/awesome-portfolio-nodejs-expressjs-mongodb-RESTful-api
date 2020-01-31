@@ -10,6 +10,10 @@ module.exports = {
         return UsersService.create(req, res);
     },
 
+    createSeedingUser: (req, res) => {
+        return UsersService.createSeedingUser(req, res);
+    },
+
     update: (req, res) => {
         return UsersService.update(req, res);
     },

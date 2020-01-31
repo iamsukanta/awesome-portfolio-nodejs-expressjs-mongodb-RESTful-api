@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 require('dotenv').config();
 
 //Configure Mongoose
-mongoose.connect(db.url, { useNewUrlParser: true })
+mongoose.connect(db.url, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const apiPrefix = process.env.API_PREFIX
 
