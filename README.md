@@ -18,7 +18,7 @@ This Node Js API service is created for Vue js admin templates. You can download
 2. Clone this repo : git clone https://github.com/SukantaBala28/awesome-nodejs-api-service.git
 3. cd awesome-nodejs-api-service
 4. npm install.
-5. Copy .env.default and name it .env to set up environment variables
+5. Copy `.env.default` and name it `.env` to set up environment variables
 5. run `npm start` command
 6. You will see your project start like this, in the console: Server Running on http://localhost:3000
 6. Run the project by using localhost:3000 in the browser address bar.
