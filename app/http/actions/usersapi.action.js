@@ -18,8 +18,20 @@ module.exports = {
         return UsersService.update(req, res);
     },
 
-    show: (req, res) => {
-        return UsersService.show(req, res);
+    login: (req, res) => {
+        return UsersService.login(req, res);
+    },
+
+    logout: (req, res) => {
+        return UsersService.logout(req, res);
+    },
+
+    refresh: (req, res) => {
+        return UsersService.refresh(req, res);
+    },
+
+    me: (req, res) => {
+        return UsersService.me(req, res);
     },
 
     destroy: (req, res) => {

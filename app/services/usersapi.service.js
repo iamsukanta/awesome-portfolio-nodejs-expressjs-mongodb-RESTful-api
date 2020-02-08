@@ -1,16 +1,19 @@
 const axios = require('axios');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const config = require('../../configs/jwt.configs.js');
 // Import model
 User = require('../models/user.js');
 
 module.exports = {
     create: async (req, res) => {
+        let hashedPassword = bcrypt.hashSync(req.body.password, 8)
         let existUser = await User.find({ email: req.body.email});
         if(existUser.length < 1) {
             var user = new User();
             user.name = req.body.name;
             user.email = req.body.email;
-            user.password = req.body.password;
+            user.password = hashedPassword;
             return user.save()
             .then(function(response) { 
                 res.status(200).json({ message: "User Successfully Created."}); 
@@ -28,7 +31,7 @@ module.exports = {
         let seedingUser = await require ('../utils/userseedingdata.js');
 
         seedingUser.data.forEach( async(user) => {
-            // user.password = bcrypt.hashSync(user.password, 10);
+            user.password = bcrypt.hashSync(user.password, 8);
             let existUser = await User.find({ email: user.email});
             if(existUser.length < 1) {
                 var newUser = new User(user);
@@ -72,9 +75,41 @@ module.exports = {
         });
     },
 
+    login: (req, res) => {
+        User.findOne({ email: req.body.email }, async (err, user) => {
+            if (err) return res.status(500).send({ message: "Internal server error"});
+            if (!user ) return res.status(400).json({ message: "Email Does Not Exist." });    
+            
+            var passwordIsValid = await bcrypt.compareSync(req.body.password, user.password);
+            if (!passwordIsValid) return res.status(400).send({ auth: false, token: null , message: "Password not matched."})
+        
+            var token = jwt.sign({ _id: user._id, email: user.email, name: user.name }, config.secret, { expiresIn: '60m' });
+        
+            res.setHeader("Authorization", token);
+            return res.status(200).json({
+              message: "Auth Successful"
+            });   
+        })
+    },
 
-    show: (req, res) => {
-        var id = req.params.id;
+    logout: (req, res) => {
+        return res.status(200).json({ message: "Logout Successful" });
+    },
+
+    refresh: (req, res) => {
+        var token = jwt.sign({ 
+            _id: req.ipartners._id, 
+            email: req.ipartners.email, 
+            name: req.ipartners.name },
+            config.secret, { expiresIn: '60m' }
+        );
+        res.setHeader("Authorization", token);
+        return res.status(200).json({ auth: true, token: token }); 
+    },
+
+
+    me: (req, res) => {
+        var id = req.user._id;
         return User.findById(id)
             .exec((err, user) => {
             if (err) res.status(400).json(err);
