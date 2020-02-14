@@ -98,9 +98,9 @@ module.exports = {
 
     refresh: (req, res) => {
         var token = jwt.sign({ 
-            _id: req.ipartners._id, 
-            email: req.ipartners.email, 
-            name: req.ipartners.name },
+            _id: req.user._id, 
+            email: req.user.email, 
+            name: req.user.name },
             config.secret, { expiresIn: '60m' }
         );
         res.setHeader("Authorization", token);
