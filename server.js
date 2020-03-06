@@ -55,8 +55,10 @@ const apiPrefix = process.env.API_PREFIX
 
 // ------------------ importing route files ------------------------
 const usersRouter = require('./app/http/routes/users.route')
+const portfoliosRouter = require('./app/http/routes/portfolios.route')
 
 //---------------------- api routes -------------------------------
 app.use(apiPrefix + '/users', usersRouter)
+app.use(apiPrefix + '/portfolios', portfoliosRouter)
 
 module.exports = app
