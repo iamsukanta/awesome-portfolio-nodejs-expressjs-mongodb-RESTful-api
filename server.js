@@ -58,11 +58,13 @@ const usersRouter = require('./app/http/routes/users.route')
 const portfoliosRouter = require('./app/http/routes/portfolios.route')
 const resumesRouter = require('./app/http/routes/resumes.route')
 const aboutmeRouter = require('./app/http/routes/aboutme.route')
+const blogRouter = require('./app/http/routes/blogs.route')
 
-//---------------------- api routes -------------------------------
+//------------------------ api routes -------------------------------
 app.use(apiPrefix + '/users', usersRouter)
 app.use(apiPrefix + '/portfolios', portfoliosRouter)
 app.use(apiPrefix + '/resumes', resumesRouter)
 app.use(apiPrefix + '/aboutme', aboutmeRouter)
+app.use(apiPrefix + '/blogs', blogRouter)
 
 module.exports = app
