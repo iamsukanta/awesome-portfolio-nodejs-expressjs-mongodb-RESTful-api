@@ -7,7 +7,7 @@ Aboutme = require('../models/aboutme.js');
 
 module.exports = {
   list: (req, res) => {
-    return Aboutme.find({})
+    return Aboutme.findOne({})
     .sort({created_at: -1})
     .exec((err, aboutme) => {
       if (err) res.status(400).json(err);
@@ -17,7 +17,8 @@ module.exports = {
 
   create: async (req, res) => {
     var aboutme = new Aboutme();
-    aboutme.url = req.body.url;
+    aboutme.description = req.body.description;
+    aboutme.image = req.file.filename;
     aboutme.created_by = req.user._id;
     return aboutme.save()
     .then(function(data) { 

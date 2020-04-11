@@ -19,7 +19,7 @@ module.exports = {
   create: async (req, res) => {
     var blog = new Blog();
     blog.title = req.body.title;
-    blog.url = req.body.url;
+    blog.image = req.file.filename;
     blog.description = req.body.description;
     blog.created_by = req.user._id;
     return blog.save()
