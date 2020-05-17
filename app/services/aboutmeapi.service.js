@@ -7,10 +7,11 @@ Aboutme = require('../models/aboutme.js');
 
 module.exports = {
   list: (req, res) => {
-    return Aboutme.findOne({})
-    .sort({created_at: -1})
+    return Aboutme.findOne()
+    .sort({ created_at: -1 })
     .exec((err, aboutme) => {
       if (err) res.status(400).json(err);
+      console.log(aboutme);
       res.status(200).json({data: aboutme, success: true})
     });
   },
