@@ -28,6 +28,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(function(req, res, next) {
+
+  var allowedOrigins = ['http://localhost:8080', 'http://localhost:8081',
+    'https://iamsukanta.github.io', 'https://www.iamsukanta.github.io', 'http://www.iamsukanta.github.io',
+    'http://iamsukanta.github.io'];
+  var origin = req.headers.origin;
+  if (allowedOrigins.indexOf(origin) > -1) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
+
+
   // var allowedOrigins = ['http://localhost:8080', 'http://localhost:8081',
   //  'https://s-admin.kothao.com', 'https://www.s-admin.kothao.com', 'https://kothao.com',
   //  'https://www.kothao.com','http://partner.kothao.com','http://www.partner.kothao.com'];
@@ -36,8 +46,9 @@ app.use(function(req, res, next) {
   //      res.setHeader('Access-Control-Allow-Origin', '*');
   // }
 
-  res.setHeader('Access-Control-Allow-Origin', '*');
   //res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8020');
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, PUT, PATCH, POST, DELETE, HEAD, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Credentials', true);
