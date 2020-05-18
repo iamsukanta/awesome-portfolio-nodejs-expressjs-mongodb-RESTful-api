@@ -3,7 +3,7 @@ const router = express.Router()
 const usersapiAction = require('../actions/usersapi.action')
 const userMiddleware = require('../middlewares/user.middleware.js')
 
-router.get('/seed', usersapiAction.createSeedingUser)
+router.get('/seed', userMiddleware.checkToken, usersapiAction.createSeedingUser)
 	// .post('/create', userMiddleware.checkToken, usersapiAction.create)
 	.post('/login', usersapiAction.login)
 	.post('/logout', userMiddleware.checkToken, usersapiAction.logout)
