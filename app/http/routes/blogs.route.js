@@ -24,6 +24,6 @@ const imageStorage = multer.diskStorage({
 const upload = multer({storage: imageStorage});
 
 router .get('/', userMiddleware.checkToken, blogsapiAction.list)
-    .post('/create', upload.single('banner_img'), userMiddleware.checkToken, blogsapiAction.create)
+    .post('/create', upload.single('image'), userMiddleware.checkToken, blogsapiAction.create)
 
 module.exports = router

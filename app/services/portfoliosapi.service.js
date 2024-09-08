@@ -1,5 +1,5 @@
 const axios = require('axios');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../../configs/jwt.configs.js');
 // Import model
