@@ -7,6 +7,18 @@ module.exports = {
   },
 
   create: (req, res) => {
-      return PortfolioService.create(req, res);
+    return PortfolioService.create(req, res);
+  },
+
+  portfolioDetails: (req, res) => {
+    return PortfolioService.portfolioDetails(req, res);
+  },
+
+  edit: (req, res) => {
+    return PortfolioService.edit(req, res);
+  },
+
+  delete: (req, res) => {
+    return PortfolioService.delete(req, res);
   },
 }

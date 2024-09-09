@@ -6,6 +6,10 @@ module.exports = {
     return AboutmeService.list(req, res);
   },
 
+  latestAboutMe: (req, res) => {
+    return AboutmeService.latestAboutMe(req, res);
+  },
+
   aboutmeDetails: (req, res) => {
     return AboutmeService.aboutmeDetails(req, res);
   },
@@ -16,5 +20,9 @@ module.exports = {
 
   edit: (req, res) => {
     return AboutmeService.edit(req, res);
+  },
+
+  delete: (req, res) => {
+    return AboutmeService.delete(req, res);
   },
 }

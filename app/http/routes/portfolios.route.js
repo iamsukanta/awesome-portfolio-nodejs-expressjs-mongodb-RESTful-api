@@ -5,5 +5,8 @@ const userMiddleware = require('../middlewares/user.middleware.js')
 
 router.get('/', portfoliosAction.list)
   .post('/create', userMiddleware.checkToken, portfoliosAction.create)
+  .get('/:id', portfoliosAction.portfolioDetails)
+  .post('/edit/:id', userMiddleware.checkToken, portfoliosAction.edit)
+  .delete('/:id', userMiddleware.checkToken, portfoliosAction.delete)
 
 module.exports = router

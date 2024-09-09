@@ -16,7 +16,6 @@ module.exports = {
   },
 
   create: async (req, res) => {
-    console.log(req.body, "dd");
     var resume = new Resume();
     resume.url = req.body.url;
     resume.created_by = req.user._id;
@@ -30,5 +29,41 @@ module.exports = {
       .catch((err) => {
         res.status(400).json({ message: err });
       });
+  },
+
+  resumeDetails: async (req, res) => {
+    let id = req.params.id;
+    let resume = await Resume.findById(id);
+    if(!resume) {
+      return res.status(404).json({ message: 'Resume data not found.'})
+    } else {
+      return res.status(200).json({ data: resume });
+    }
+  },
+
+  edit: async (req, res) => {
+    let id = req.params.id;
+    let resume = await Resume.findById(id);
+    if(!resume) {
+      return res.status(404).json({ message: 'Resume data not found.'})
+    }
+    resume.url = req.body.url;
+    return resume.save()
+    .then(function(data) { 
+      return res.status(200).json({ message: "Resume Successfully Created.", data: data}); 
+    }).catch(err => {
+      return res.status(400).json({ message: err});
+    });      
+  },
+
+  delete: async (req, res) => {
+    let id = req.params.id;
+    let resume = await Resume.findById(id);
+    if(!resume) {
+      return res.status(404).json({ message: 'Resume data not found.'})
+    } else {
+      await resume.delete();
+      return res.status(200).json({ message: 'Resume successfully deleted.' });
+    }
   },
 };

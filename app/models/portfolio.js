@@ -6,17 +6,21 @@ const PortfolioSchema = new Schema({
     //Schema Data
     title: {
       type: String,
-      required: false
+      required: true
     },
     url: {
       type: String,
       required: false
     },
-
     description: {
       type: String,
       required: false
     },
+    development_technology: {
+      type: String,
+      required: false
+    },
+
     created_by: {
       type : Schema.ObjectId, ref : 'User', required:false ,
     },

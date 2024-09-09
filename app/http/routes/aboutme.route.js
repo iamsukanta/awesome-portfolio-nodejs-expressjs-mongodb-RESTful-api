@@ -25,8 +25,10 @@ const imageStorage = multer.diskStorage({
 const upload = multer({storage: imageStorage});
 
 router.get('/', aboutmeAction.list)
+.get('/latest', aboutmeAction.latestAboutMe)
 .get('/:id', aboutmeAction.aboutmeDetails)
 .post('/create', upload.single('image'), userMiddleware.checkToken, aboutmeAction.create)
 .post('/edit/:id', upload.single('image'), userMiddleware.checkToken, aboutmeAction.edit)
+.delete('/:id', userMiddleware.checkToken, aboutmeAction.delete)
 
 module.exports = router
