@@ -7,11 +7,20 @@ Resume = require('../models/resume.js');
 
 module.exports = {
   list: (req, res) => {
+    return Resume.find({})
+      .sort({ created_at: -1 })
+      .exec((err, resumes) => {
+        if (err) res.status(400).json(err);
+        res.status(200).json({ data: resumes, success: true });
+      });
+  },
+
+  latestResume: (req, res) => {
     return Resume.findOne({})
       .sort({ created_at: -1 })
-      .exec((err, portfolios) => {
+      .exec((err, resume) => {
         if (err) res.status(400).json(err);
-        res.status(200).json({ data: portfolios, success: true });
+        res.status(200).json({ data: resume, success: true });
       });
   },
 

@@ -6,6 +6,10 @@ module.exports = {
     return ResumeService.list(req, res);
   },
 
+  latestResume: (req, res) => {
+    return ResumeService.latestResume(req, res);
+  },
+
   create: (req, res) => {
     return ResumeService.create(req, res);
   },
