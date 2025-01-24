@@ -2,17 +2,10 @@ const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const bodyParser   = require('body-parser')
-
 const errorHandler = require('errorhandler');
 const mongoose = require('mongoose');
 const db = require('./configs/database.config')
-
-// const userDomain = require('./app/models/user');
-
 const app = express();
-
-
-//Configure mongoose's promise to global promise
 mongoose.promise = global.Promise;
 
 //Configure isProduction variable
@@ -37,17 +30,6 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
   }
 
-
-  // var allowedOrigins = ['http://localhost:8080', 'http://localhost:8081',
-  //  'https://s-admin.kothao.com', 'https://www.s-admin.kothao.com', 'https://kothao.com',
-  //  'https://www.kothao.com','http://partner.kothao.com','http://www.partner.kothao.com'];
-  // var origin = req.headers.origin;
-  // if(allowedOrigins.indexOf(origin) > -1){
-  //      res.setHeader('Access-Control-Allow-Origin', '*');
-  // }
-
-  //res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8020');
-
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, PUT, PATCH, POST, DELETE, HEAD, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -60,7 +42,13 @@ app.use(function(req, res, next) {
 require('dotenv').config();
 
 //Configure Mongoose
-mongoose.connect(db.url, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(db.url, { useNewUrlParser: true, useUnifiedTopology: true }).
+then(()=>{
+  console.log('Mongodb Connected Successfully');
+})
+.catch((err)=>{
+  console.error(err)
+});
 
 const apiPrefix = process.env.API_PREFIX
 
